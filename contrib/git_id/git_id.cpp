@@ -1,5 +1,6 @@
 /*
- * This file is part of the Continued-MaNGOS Project
+ * This file is Copyright (C) the MaNGOS Project <http://getmangos.com/>
+ * The original source of this file is located at <http://github.com/mangos-wotlk/server>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,8 +54,8 @@
 #define NUM_DATABASES 3
 
 char remotes[NUM_REMOTES][MAX_REMOTE] = {
-    "git@github.com:cmangos/mangos-wotlk.git",
-    "git://github.com/cmangos/mangos-wotlk.git"             // used for fetch if present
+    "git@github.com:mangos-wotlk/server.git",
+    "git://github.com/mangos-wotlk/server.git"             // used for fetch if present
 };
 
 char remote_branch[MAX_REMOTE] = "master";

@@ -1,5 +1,6 @@
 /*
- * This file is part of the Continued-MaNGOS Project
+ * This file is Copyright (C) the MaNGOS Project <http://getmangos.com/>
+ * The original source of this file is located at <http://github.com/mangos-wotlk/server>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -366,7 +367,7 @@ void WorldSession::HandleCalendarUpdateEvent(WorldPacket& recv_data)
         CharacterDatabase.escape_string(title);
         CharacterDatabase.escape_string(description);
         CharacterDatabase.PExecute("UPDATE calendar_events SET "
-                                   "type=%hu, flags=%u, dungeonId=%d, eventTime=%u, title=%s, description=%s "
+                                   "type=%hu, flags=%u, dungeonId=%d, eventTime=%u, title='%s', description='%s'"
                                    "WHERE eventid=" UI64FMTD,
                                    type, flags, dungeonId, event->EventTime, title.c_str(), description.c_str(), eventId);
     }
@@ -847,7 +848,7 @@ void CalendarMgr::SendCalendarEvent(Player* player, CalendarEvent const* event, 
         return;
 
     std::string timeStr = TimeToTimestampStr(event->EventTime);
-    DEBUG_FILTER_LOG(LOG_FILTER_CALENDAR, "SendCalendarEvent> sendType[%u], CreatorGuid[%s], EventId["UI64FMTD"], Type[%u], Flags[%u], Time[%s]",
+    DEBUG_FILTER_LOG(LOG_FILTER_CALENDAR, "SendCalendarEvent> sendType[%u], CreatorGuid[%s], EventId["UI64FMTD"], Type[%u], Flags[%u], Title[%s]",
         sendType, event->CreatorGuid.GetString().c_str(), event->EventId, uint32(event->Type), event->Flags, event->Title.c_str());
 
     WorldPacket data(SMSG_CALENDAR_SEND_EVENT);

@@ -1,5 +1,6 @@
 /*
- * This file is part of the Continued-MaNGOS Project
+ * This file is Copyright (C) the MaNGOS Project <http://getmangos.com/>
+ * The original source of this file is located at <http://github.com/mangos-wotlk/server>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -113,6 +114,10 @@ class Log : public MaNGOS::Singleton<Log, MaNGOS::ClassLevelLockable<Log, ACE_Th
                 fclose(dberLogfile);
             dberLogfile = NULL;
 
+            if (eventAiErLogfile != NULL)
+                fclose(eventAiErLogfile);
+            eventAiErLogfile = NULL;
+
             if (scriptErrLogFile != NULL)
                 fclose(scriptErrLogFile);
             scriptErrLogFile = NULL;
@@ -147,7 +152,11 @@ class Log : public MaNGOS::Singleton<Log, MaNGOS::ClassLevelLockable<Log, ACE_Th
         void outErrorDb(const char* str, ...)     ATTR_PRINTF(2, 3);
         // any log level
         void outChar(const char* str, ...)        ATTR_PRINTF(2, 3);
+
+        void outErrorEventAI();                             // any log level
         // any log level
+        void outErrorEventAI(const char* str, ...)      ATTR_PRINTF(2, 3);
+
         void outErrorScriptLib();                           // any log level
         // any log level
         void outErrorScriptLib(const char* str, ...)     ATTR_PRINTF(2, 3);
@@ -184,6 +193,7 @@ class Log : public MaNGOS::Singleton<Log, MaNGOS::ClassLevelLockable<Log, ACE_Th
         FILE* gmLogfile;
         FILE* charLogfile;
         FILE* dberLogfile;
+        FILE* eventAiErLogfile;
         FILE* scriptErrLogFile;
         FILE* worldLogfile;
         ACE_Thread_Mutex m_worldLogMtx;

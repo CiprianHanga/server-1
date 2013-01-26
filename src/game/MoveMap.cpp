@@ -1,5 +1,6 @@
 /*
- * This file is part of the Continued-MaNGOS Project
+ * This file is Copyright (C) the MaNGOS Project <http://getmangos.com/>
+ * The original source of this file is located at <http://github.com/mangos-wotlk/server>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -98,7 +99,8 @@ namespace MMAP
         FILE* file = fopen(fileName, "rb");
         if (!file)
         {
-            sLog.outError("MMAP:loadMapData: Error: Could not open mmap file '%s'", fileName);
+            if (MMapFactory::IsPathfindingEnabled(mapId))
+                sLog.outError("MMAP:loadMapData: Error: Could not open mmap file '%s'", fileName);
             delete[] fileName;
             return false;
         }
@@ -160,7 +162,7 @@ namespace MMAP
         FILE* file = fopen(fileName, "rb");
         if (!file)
         {
-            sLog.outError("MMAP:loadMap: Could not open mmtile file '%s'", fileName);
+            DEBUG_FILTER_LOG(LOG_FILTER_MAP_LOADING, "ERROR: MMAP:loadMap: Could not open mmtile file '%s'", fileName);
             delete[] fileName;
             return false;
         }
